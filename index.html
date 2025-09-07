@@ -17,9 +17,82 @@
     .pulse {
       animation: pulse 2s infinite;
     }
+    body {
+      background: linear-gradient(135deg, #000, #8B0000);
+      color: #fff;
+    }
+    .bg-white {
+      background-color: #1a1a1a;
+    }
+    .text-gray-600 {
+      color: #d3d3d3;
+    }
+    .text-gray-700 {
+      color: #e0e0e0;
+    }
+    .text-gray-800 {
+      color: #f0f0f0;
+    }
+    .border-gray-200 {
+      border-color: #333;
+    }
+    .hover\\:shadow-xl:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+    .focus\\:ring-indigo-500:focus {
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5);
+    }
+    .focus\\:ring-green-500:focus {
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.5);
+    }
+    .focus\\:ring-purple-500:focus {
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5);
+    }
+    .focus\\:ring-red-500:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
+    }
+    .focus\\:ring-blue-500:focus {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    }
+    .bg-indigo-600 {
+      background-color: #4f46e5;
+    }
+    .bg-green-600 {
+      background-color: #22c55e;
+    }
+    .bg-purple-600 {
+      background-color: #8b5cf6;
+    }
+    .bg-red-600 {
+      background-color: #ef4444;
+    }
+    .bg-blue-600 {
+      background-color: #3b82f6;
+    }
+    .bg-gray-800 {
+      background-color: #2d2d2d;
+    }
+    .hover\\:bg-indigo-700:hover {
+      background-color: #4338ca;
+    }
+    .hover\\:bg-green-700:hover {
+      background-color: #16a34a;
+    }
+    .hover\\:bg-purple-700:hover {
+      background-color: #7c3aed;
+    }
+    .hover\\:bg-red-700:hover {
+      background-color: #dc2626;
+    }
+    .hover\\:bg-blue-700:hover {
+      background-color: #3164db;
+    }
+    .hover\\:bg-gray-900:hover {
+      background-color: #1a1a1a;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-br from-teal-50 to-cyan-100 min-h-screen font-sans">
+<body class="min-h-screen font-sans">
 
   <!-- Header -->
   <header class="bg-white shadow-md">
@@ -83,31 +156,6 @@
       </div>
     </section>
 
-    <!-- Additional Features -->
-    <section class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">🔧 Additional Tools</h2>
-
-      <!-- Ping Tool -->
-      <div class="mb-6">
-        <h3 class="font-semibold text-gray-700 mb-2">Ping Tool</h3>
-        <form id="ping-form" class="space-y-4">
-          <input type="text" id="ping-target" class="w-full px-4 py-2 border rounded-md focus:ring-purple-500" placeholder="e.g., 8.8.8.8" required />
-          <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition">Ping</button>
-        </form>
-        <div id="ping-result" class="mt-6 text-gray-700"></div>
-      </div>
-
-      <!-- Traceroute Tool -->
-      <div>
-        <h3 class="font-semibold text-gray-700 mb-2">Traceroute Tool</h3>
-        <form id="traceroute-form" class="space-y-4">
-          <input type="text" id="traceroute-target" class="w-full px-4 py-2 border rounded-md focus:ring-red-500" placeholder="e.g., google.com" required />
-          <button type="submit" class="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition">Traceroute</button>
-        </form>
-        <div id="traceroute-result" class="mt-6 text-gray-700"></div>
-      </div>
-    </section>
-
   </main>
 
   <!-- Footer -->
@@ -144,6 +192,31 @@
       `;
       document.querySelector('.bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300').appendChild(newCommand);
     }
+  }
+
+  document.getElementById('minecraft-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const server = document.getElementById('server').value;
+    fetch(`https://api.mcsrvstat.us/2/${server}`)
+      .then(response => response.json())
+      .then(data => {
+        const resultDiv = document.getElementById('minecraft-result');
+        if (data.online) {
+          resultDiv.innerHTML = `<p>Server is online!</p><p>IP: ${data.ip}</p><p>Port: ${data.port}</p>`;
+          updateCommands(data.ip, data.port);
+        } else {
+          resultDiv.innerHTML = '<p>Server is offline.</p>';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('minecraft-result').innerHTML = '<p>Error checking server status.</p>';
+      });
+  });
+
+  function updateCommands(ip, port) {
+    document.getElementById('command-box-1').textContent = `./prs-tcp ${ip} ${port} 300 300 6550`;
+    document.getElementById('command-box-2').textContent = `./prs-udp ${ip} ${port} 300 1400 300 normal`;
   }
 </script>
 
