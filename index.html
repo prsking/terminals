@@ -149,6 +149,9 @@
   </footer>
 <script src="assets/js/brain.js"></script>
 <script>
+  let ip = '';
+  let port = '';
+
   function copyCommand(elementId) {
     const commandBox = document.getElementById(elementId);
     const commandText = commandBox.textContent;
@@ -167,21 +170,14 @@
       newCommand.innerHTML = `
         <h3 class="font-semibold text-custom mb-2">Custom Command (${toolName})</h3>
         <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="custom-command-${toolName}">
-          ./${toolName} [IP] [PORT] 300 300 6550
+          ./${toolName} ${ip} ${port} 300 300 6550
         </div>
         <button onclick="copyCommand('custom-command-${toolName}')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
           📋 Copy Custom Command
         </button>
       `;
       document.querySelector('.bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300').appendChild(newCommand);
-      updateCommandsWithCustomTool(toolName);
     }
-  }
-
-  function updateCommandsWithCustomTool(toolName) {
-    const ip = document.getElementById('server').value.split(':')[0];
-    const port = document.getElementById('server').value.split(':')[1] || '25565';
-    document.getElementById(`custom-command-${toolName}`).textContent = `./${toolName} ${ip} ${port} 300 300 6550`;
   }
 
   document.getElementById('minecraft-form').addEventListener('submit', function(event) {
@@ -192,8 +188,10 @@
       .then(data => {
         const resultDiv = document.getElementById('minecraft-result');
         if (data.online) {
-          resultDiv.innerHTML = `<p>Server is online!</p><p>IP: ${data.ip}</p><p>Port: ${data.port}</p>`;
-          updateCommands(data.ip, data.port);
+          ip = data.ip;
+          port = data.port;
+          resultDiv.innerHTML = `<p>Server is online!</p><p>IP: ${ip}</p><p>Port: ${port}</p>`;
+          updateCommands(ip, port);
         } else {
           resultDiv.innerHTML = '<p>Server is offline.</p>';
         }
