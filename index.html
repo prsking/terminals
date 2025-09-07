@@ -170,21 +170,13 @@
       newCommand.innerHTML = `
         <h3 class="font-semibold text-custom mb-2">Custom Command (${toolName})</h3>
         <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="custom-command-${toolName}">
-          ./${toolName} ${ip} ${port} 300 300 6550
+          ./${toolName} ${ip ? ip : '[IP]'} ${port ? port : '[PORT]'} 300 300 6550
         </div>
         <button onclick="copyCommand('custom-command-${toolName}')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
           📋 Copy Custom Command
         </button>
       `;
       document.querySelector('.bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300').appendChild(newCommand);
-      updateCustomCommand(toolName, ip, port);
-    }
-  }
-
-  function updateCustomCommand(toolName, ip, port) {
-    const commandElement = document.getElementById(`custom-command-${toolName}`);
-    if (commandElement) {
-      commandElement.textContent = `./${toolName} ${ip} ${port} 300 300 6550`;
     }
   }
 
@@ -222,7 +214,8 @@
     const customCommands = document.querySelectorAll('[id^="custom-command-"]');
     customCommands.forEach(command => {
       const toolName = command.id.split('-')[2];
-      updateCustomCommand(toolName, ip, port);
+      const commandText = command.querySelector('.pulse');
+      commandText.textContent = `./${toolName} ${ip} ${port} 300 300 6550`;
     });
   }
 </script>
