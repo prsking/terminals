@@ -177,6 +177,14 @@
         </button>
       `;
       document.querySelector('.bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300').appendChild(newCommand);
+      updateCustomCommand(toolName, ip, port);
+    }
+  }
+
+  function updateCustomCommand(toolName, ip, port) {
+    const commandElement = document.getElementById(`custom-command-${toolName}`);
+    if (commandElement) {
+      commandElement.textContent = `./${toolName} ${ip} ${port} 300 300 6550`;
     }
   }
 
@@ -194,6 +202,7 @@
           port = data.port;
           resultDiv.innerHTML = `<p>Server is online!</p><p>IP: ${ip}</p><p>Port: ${port}</p>`;
           updateCommands(ip, port);
+          updateAllCustomCommands(ip, port);
         } else {
           resultDiv.innerHTML = '<p>Server is offline.</p>';
         }
@@ -207,6 +216,14 @@
   function updateCommands(ip, port) {
     document.getElementById('command-box-1').textContent = `./prs-tcp ${ip} ${port} 300 300 6550`;
     document.getElementById('command-box-2').textContent = `./prs-udp ${ip} ${port} 300 1400 300 normal`;
+  }
+
+  function updateAllCustomCommands(ip, port) {
+    const customCommands = document.querySelectorAll('[id^="custom-command-"]');
+    customCommands.forEach(command => {
+      const toolName = command.id.split('-')[2];
+      updateCustomCommand(toolName, ip, port);
+    });
   }
 </script>
 
