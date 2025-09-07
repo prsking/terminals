@@ -183,10 +183,12 @@
   document.getElementById('minecraft-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const server = document.getElementById('server').value;
+    const resultDiv = document.getElementById('minecraft-result');
+    resultDiv.innerHTML = '<p>Checking server status...</p>'; // Immediate feedback
+
     fetch(`https://api.mcsrvstat.us/2/${server}`)
       .then(response => response.json())
       .then(data => {
-        const resultDiv = document.getElementById('minecraft-result');
         if (data.online) {
           ip = data.ip;
           port = data.port;
@@ -198,7 +200,7 @@
       })
       .catch(error => {
         console.error('Error:', error);
-        document.getElementById('minecraft-result').innerHTML = '<p>Error checking server status.</p>';
+        resultDiv.innerHTML = '<p>Error checking server status.</p>';
       });
   });
 
