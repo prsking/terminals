@@ -223,23 +223,28 @@ document.getElementById('port-scan-form').addEventListener('submit', function(ev
 event.preventDefault();
 const scanIp = document.getElementById('scan-ip').value;
 const resultDiv = document.getElementById('port-scan-result');
-resultDiv.innerHTML = '<p>Scanning ports...</p>';
+resultDiv.innerHTML = '<p>Scanning ports (1-65535)... This may take a moment.</p>';
 if (!scanIp) {
 resultDiv.innerHTML = '<p>Please enter a valid IP address.</p>';
 return;
 }
-// Define common Minecraft port range to scan
-const startPort = 25565;
-const endPort = 25575;
+// Define full port range
+const startPort = 1;
+const endPort = 65535;
+const batchSize = 100; // Process ports in batches to avoid overwhelming the API
 const openPorts = [];
 const closedPorts = [];
 async function scanPort(port) {
 try {
+const controller = new AbortController();
+const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout per request
 const response = await fetch(`https://api.mcsrvstat.us/2/${scanIp}:${port}`, {
 headers: {
 'User-Agent': 'MinecraftServerFinder/1.0'
-}
+},
+signal: controller.signal
 });
+clearTimeout(timeoutId);
 const data = await response.json();
 if (data.online) {
 openPorts.push(port);
@@ -251,23 +256,30 @@ console.error(`Error scanning port ${port}:`, error);
 closedPorts.push(port);
 }
 }
+async function scanBatch(start, end) {
 const scanPromises = [];
-for (let port = startPort; port <= endPort; port++) {
+for (let port = start; port <= end && port <= endPort; port++) {
 scanPromises.push(scanPort(port));
 }
-Promise.all(scanPromises).then(() => {
+await Promise.all(scanPromises);
+}
+async function scanAllPorts() {
+for (let i = startPort; i <= endPort; i += batchSize) {
+await scanBatch(i, i + batchSize - 1);
+}
 resultDiv.innerHTML = '';
 if (openPorts.length > 0) {
-resultDiv.innerHTML += `<p>Open ports: ${openPorts.join(', ')}</p>`;
+resultDiv.innerHTML += `<p>Open ports: ${openPorts.sort((a, b) => a - b).join(', ')}</p>`;
 } else {
-resultDiv.innerHTML += '<p>No open ports found in the range ${startPort}-${endPort}.</p>';
+resultDiv.innerHTML += `<p>No open ports found in the range 1-65535.</p>`;
 }
 if (closedPorts.length > 0) {
-resultDiv.innerHTML += `<p>Closed ports: ${closedPorts.join(', ')}</p>`;
+resultDiv.innerHTML += `<p>Closed ports: ${closedPorts.sort((a, b) => a - b).join(', ')}</p>`;
 } else {
-resultDiv.innerHTML += `<p>No closed ports found in the range ${startPort}-${endPort}.</p>`;
+resultDiv.innerHTML += `<p>No closed ports found in the range 1-65535.</p>`;
 }
-}).catch(error => {
+}
+scanAllPorts().catch(error => {
 console.error('Port scan error:', error);
 resultDiv.innerHTML = '<p>Error scanning ports. Please try again later.</p>';
 });
