@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Domain & Minecraft Server Checker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-6 py-6 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold text-indigo-600">
+        Domain & Minecraft Server Checker
+      </h1>
+      <p class="text-gray-600 mt-2">
+        Instantly check DNS records, Minecraft server status, and more with one tool.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-10 space-y-12">
+
+    <!-- Domain Lookup -->
+    <section class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">🌐 Domain Lookup</h2>
+      <form id="domain-form" class="space-y-4">
+        <input type="text" id="domain" class="w-full px-4 py-2 border rounded-md focus:ring-indigo-500" placeholder="e.g., google.com" required />
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition">Lookup DNS</button>
+      </form>
+      <div id="domain-result" class="mt-6 text-gray-700"></div>
+    </section>
+
+    <!-- Minecraft Status -->
+    <section class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">🎮 Minecraft Server Status</h2>
+      <form id="minecraft-form" class="space-y-4">
+        <input type="text" id="server" class="w-full px-4 py-2 border rounded-md focus:ring-green-500" placeholder="e.g., hypixel.net" required />
+        <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition">Check Server</button>
+      </form>
+      <div id="minecraft-result" class="mt-6 text-gray-700"></div>
+    </section>
+
+    <!-- Command Generators -->
+    <section class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">⚡ Auto Command Generators</h2>
+      <p class="text-gray-600 mb-4">These commands update automatically with the IP & Port from the Minecraft status.</p>
+
+      <!-- Command 1 -->
+      <div class="mb-6">
+        <h3 class="font-semibold text-gray-700 mb-2">Command 1 (prs-tcp)</h3>
+        <div class="bg-gray-100 p-4 rounded-md border text-gray-800 font-mono text-sm overflow-x-auto pulse" id="command-box-1">
+          ./prs-tcp [IP] [PORT] 300 300 6550
+        </div>
+        <button onclick="copyCommand('command-box-1')" class="mt-2 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition">
+          📋 Copy Command 1
+        </button>
+      </div>
+
+      <!-- Command 2 -->
+      <div>
+        <h3 class="font-semibold text-gray-700 mb-2">Command 2 (prs-udp)</h3>
+        <div class="bg-gray-100 p-4 rounded-md border text-gray-800 font-mono text-sm overflow-x-auto pulse" id="command-box-2">
+          ./prs-udp [IP] [PORT] 300 1400 300 normal
+        </div>
+        <button onclick="copyCommand('command-box-2')" class="mt-2 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition">
+          📋 Copy Command 2
+        </button>
+      </div>
+    </section>
+
+    <!-- Additional Features -->
+    <section class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">🔧 Additional Tools</h2>
+
+      <!-- Ping Tool -->
+      <div class="mb-6">
+        <h3 class="font-semibold text-gray-700 mb-2">Ping Tool</h3>
+        <form id="ping-form" class="space-y-4">
+          <input type="text" id="ping-target" class="w-full px-4 py-2 border rounded-md focus:ring-purple-500" placeholder="e.g., 8.8.8.8" required />
+          <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition">Ping</button>
+        </form>
+        <div id="ping-result" class="mt-6 text-gray-700"></div>
+      </div>
+
+      <!-- Traceroute Tool -->
+      <div>
+        <h3 class="font-semibold text-gray-700 mb-2">Traceroute Tool</h3>
+        <form id="traceroute-form" class="space-y-4">
+          <input type="text" id="traceroute-target" class="w-full px-4 py-2 border rounded-md focus:ring-red-500" placeholder="e.g., google.com" required />
+          <button type="submit" class="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition">Traceroute</button>
+        </form>
+        <div id="traceroute-result" class="mt-6 text-gray-700"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white py-4 border-t border-gray-200">
+    <div class="container mx-auto px-6 text-center text-gray-600">
+      <p>&copy; 2025 Domain & Minecraft Checker. Built By Team Dosha</p>
+    </div>
+  </footer>
+<script src="assets/js/brain.js"></script>
+
+</body>
+</html>
