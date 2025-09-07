@@ -137,6 +137,9 @@
           📋 Copy Command 2
         </button>
       </div>
+
+      <!-- Custom Commands Container -->
+      <div id="custom-commands-container" class="mt-6"></div>
     </section>
 
   </main>
@@ -165,6 +168,7 @@
   function addCustomTool() {
     const toolName = document.getElementById('custom-tool').value;
     if (toolName) {
+      const customCommandsContainer = document.getElementById('custom-commands-container');
       const newCommand = document.createElement('div');
       newCommand.className = 'mb-6';
       newCommand.innerHTML = `
@@ -176,7 +180,7 @@
           📋 Copy Custom Command
         </button>
       `;
-      document.querySelector('.bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300').appendChild(newCommand);
+      customCommandsContainer.appendChild(newCommand);
     }
   }
 
