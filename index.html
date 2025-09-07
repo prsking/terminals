@@ -1,228 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Terminals Attacks</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-    }
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    body {
-      background: linear-gradient(135deg, #000, #8B0000);
-      color: #fff;
-      font-family: 'Arial', sans-serif;
-    }
-    .bg-custom {
-      background-color: #1a1a1a;
-    }
-    .text-custom {
-      color: #d3d3d3;
-    }
-    .border-custom {
-      border-color: #333;
-    }
-    .hover\\:shadow-custom:hover {
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-    }
-    .focus\\:ring-custom:focus {
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5);
-    }
-    .bg-primary {
-      background-color: #4f46e5;
-    }
-    .bg-secondary {
-      background-color: #22c55e;
-    }
-    .bg-tertiary {
-      background-color: #8b5cf6;
-    }
-    .bg-danger {
-      background-color: #ef4444;
-    }
-    .bg-info {
-      background-color: #3b82f6;
-    }
-    .bg-dark {
-      background-color: #2d2d2d;
-    }
-    .hover\\:bg-primary:hover {
-      background-color: #4338ca;
-    }
-    .hover\\:bg-secondary:hover {
-      background-color: #16a34a;
-    }
-    .hover\\:bg-tertiary:hover {
-      background-color: #7c3aed;
-    }
-    .hover\\:bg-danger:hover {
-      background-color: #dc2626;
-    }
-    .hover\\:bg-info:hover {
-      background-color: #3164db;
-    }
-    .hover\\:bg-dark:hover {
-      background-color: #1a1a1a;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terminals Attacks</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@keyframes pulse {
+0%, 100% {
+opacity: 1;
+}
+50% {
+opacity: 0.5;
+}
+}
+.pulse {
+animation: pulse 2s infinite;
+}
+body {
+background: linear-gradient(135deg, #000, #8B0000);
+color: #fff;
+font-family: 'Arial', sans-serif;
+}
+.bg-custom {
+background-color: #1a1a1a;
+}
+.text-custom {
+color: #d3d3d3;
+}
+.border-custom {
+border-color: #333;
+}
+.hover\\:shadow-custom:hover {
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+.focus\\:ring-custom:focus {
+box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5);
+}
+.bg-primary {
+background-color: #4f46e5;
+}
+.bg-secondary {
+background-color: #22c55e;
+}
+.bg-tertiary {
+background-color: #8b5cf6;
+}
+.bg-danger {
+background-color: #ef4444;
+}
+.bg-info {
+background-color: #3b82f6;
+}
+.bg-dark {
+background-color: #2d2d2d;
+}
+.hover\\:bg-primary:hover {
+background-color: #4338ca;
+}
+.hover\\:bg-secondary:hover {
+background-color: #16a34a;
+}
+.hover\\:bg-tertiary:hover {
+background-color: #7c3aed;
+}
+.hover\\:bg-danger:hover {
+background-color: #dc2626;
+}
+.hover\\:bg-info:hover {
+background-color: #3164db;
+}
+.hover\\:bg-dark:hover {
+background-color: #1a1a1a;
+}
+</style>
 </head>
 <body class="min-h-screen font-sans">
-
-  <!-- Header -->
-  <header class="bg-custom shadow-md">
-    <div class="container mx-auto px-6 py-6 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold text-custom">
-        Minecraft Server Finder
-      </h1>
-      <p class="text-custom mt-2">
-        Instantly check Minecraft server status. 
-      </p>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main class="container mx-auto px-6 py-10 space-y-12">
-
-    <!-- Minecraft Status -->
-    <section class="bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300">
-      <h2 class="text-2xl font-semibold text-custom mb-4">🎮 Minecraft Server Status</h2>
-      <form id="minecraft-form" class="space-y-4">
-        <input type="text" id="server" class="w-full px-4 py-2 border rounded-md focus:ring-custom text-custom bg-dark" placeholder="e.g., hypixel.net" required />
-        <button type="submit" class="w-full bg-secondary text-white py-2 px-4 rounded-md hover:bg-secondary transition">Check Server</button>
-      </form>
-      <div id="minecraft-result" class="mt-6 text-custom"></div>
-    </section>
-
-    <!-- Command Generators -->
-    <section class="bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300">
-      <h2 class="text-2xl font-semibold text-custom mb-4">⚡ Auto Command Generators</h2>
-      <p class="text-custom mb-4">These commands update automatically with the IP & Port from the Minecraft status.</p>
-
-      <!-- Custom Tool Input -->
-      <div class="mb-6">
-        <h3 class="font-semibold text-custom mb-2">Add Custom Tool</h3>
-        <input type="text" id="custom-tool" class="w-full px-4 py-2 border rounded-md focus:ring-custom text-custom bg-dark" placeholder="e.g., mytool" required />
-        <button onclick="addCustomTool()" class="mt-2 bg-info text-white px-4 py-2 rounded-md hover:bg-info transition">
-          Add Tool
-        </button>
-      </div>
-
-      <!-- Command 1 -->
-      <div class="mb-6">
-        <h3 class="font-semibold text-custom mb-2">Command Tcp</h3>
-        <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="command-box-1">
-          ./prs-tcp [IP] [PORT] 300 300 6550
-        </div>
-        <button onclick="copyCommand('command-box-1')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
-          📋 Copy Tcp Command 
-        </button>
-      </div>
-
-      <!-- Command 2 -->
-      <div>
-        <h3 class="font-semibold text-custom mb-2">Command Udp </h3>
-        <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="command-box-2">
-          ./prs-udp [IP] [PORT] 300 1400 300 normal
-        </div>
-        <button onclick="copyCommand('command-box-2')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
-          📋 Copy Udp Command 
-        </button>
-      </div>
-
-      <!-- Custom Commands Container -->
-      <div id="custom-commands-container" class="mt-6"></div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-custom py-4 border-t border-custom">
-    <div class="container mx-auto px-6 text-center text-custom">
-      <p>&copy; 2025 Terminals Attacks. Built By Devprs</p>
-    </div>
-  </footer>
+<!-- Header -->
+<header class="bg-custom shadow-md">
+<div class="container mx-auto px-6 py-6 text-center">
+<h1 class="text-3xl md:text-4xl font-bold text-custom">
+Minecraft Server Finder
+</h1>
+<p class="text-custom mt-2">
+Instantly check Minecraft server status.
+</p>
+</div>
+</header>
+<!-- Main Content -->
+<main class="container mx-auto px-6 py-10 space-y-12">
+<!-- Minecraft Status -->
+<section class="bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300">
+<h2 class="text-2xl font-semibold text-custom mb-4">🎮 Minecraft Server Status</h2>
+<form id="minecraft-form" class="space-y-4">
+<input type="text" id="server" class="w-full px-4 py-2 border rounded-md focus:ring-custom text-custom bg-dark" placeholder="e.g., hypixel.net" required />
+<button type="submit" class="w-full bg-secondary text-white py-2 px-4 rounded-md hover:bg-secondary transition">Check Server</button>
+</form>
+<div id="minecraft-result" class="mt-6 text-custom"></div>
+</section>
+<!-- Command Generators -->
+<section class="bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300">
+<h2 class="text-2xl font-semibold text-custom mb-4">⚡ Auto Command Generators</h2>
+<p class="text-custom mb-4">These commands update automatically with the IP & Port from the Minecraft status.</p>
+<!-- Custom Tool Input -->
+<div class="mb-6">
+<h3 class="font-semibold text-custom mb-2">Add Custom Tool</h3>
+<input type="text" id="custom-tool" class="w-full px-4 py-2 border rounded-md focus:ring-custom text-custom bg-dark" placeholder="e.g., mytool" required />
+<button onclick="addCustomTool()" class="mt-2 bg-info text-white px-4 py-2 rounded-md hover:bg-info transition">
+Add Tool
+</button>
+</div>
+<!-- Command 1 -->
+<div class="mb-6">
+<h3 class="font-semibold text-custom mb-2">Command Tcp</h3>
+<div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="command-box-1">
+./prs-tcp [IP] [PORT] 300 300 6550
+</div>
+<button onclick="copyCommand('command-box-1')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
+📋 Copy Tcp Command
+</button>
+</div>
+<!-- Command 2 -->
+<div>
+<h3 class="font-semibold text-custom mb-2">Command Udp </h3>
+<div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="command-box-2">
+./prs-udp [IP] [PORT] 300 1400 300 normal
+</div>
+<button onclick="copyCommand('command-box-2')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
+📋 Copy Udp Command
+</button>
+</div>
+<!-- Custom Commands Container -->
+<div id="custom-commands-container" class="mt-6"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-custom py-4 border-t border-custom">
+<div class="container mx-auto px-6 text-center text-custom">
+<p>&copy; 2025 Terminals Attacks. Built By Devprs</p>
+</div>
+</footer>
 <script src="assets/js/brain.js"></script>
 <script>
-  let ip = '';
-  let port = '';
-
-  function copyCommand(elementId) {
-    const commandBox = document.getElementById(elementId);
-    const commandText = commandBox.textContent;
-    navigator.clipboard.writeText(commandText).then(() => {
-      alert('Command copied to clipboard!');
-    }).catch(err => {
-      console.error('Failed to copy: ', err);
-    });
+let ip = '';
+let port = '';
+function copyCommand(elementId) {
+const commandBox = document.getElementById(elementId);
+const commandText = commandBox.textContent;
+navigator.clipboard.writeText(commandText).then(() => {
+alert('Command copied to clipboard!');
+}).catch(err => {
+console.error('Failed to copy: ', err);
+});
+}
+function addCustomTool() {
+const toolName = document.getElementById('custom-tool').value;
+if (toolName) {
+const customCommandsContainer = document.getElementById('custom-commands-container');
+const newCommand = document.createElement('div');
+newCommand.className = 'mb-6';
+newCommand.innerHTML = `
+<h3 class="font-semibold text-custom mb-2">Custom Command (${toolName})</h3>
+<div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="custom-command-${toolName}">
+./${toolName} ${ip ? ip : '[IP]'} ${port ? port : '[PORT]'} 300 300 6550
+</div>
+<button onclick="copyCommand('custom-command-${toolName}')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
+📋 Copy Custom Command
+</button>
+`;
+customCommandsContainer.appendChild(newCommand);
+}
+}
+document.getElementById('minecraft-form').addEventListener('submit', function(event) {
+event.preventDefault();
+const server = document.getElementById('server').value;
+const resultDiv = document.getElementById('minecraft-result');
+resultDiv.innerHTML = '<p>Checking server status...</p>'; // Immediate feedback
+fetch(`https://api.mcsrvstat.us/2/${server}`, {
+  headers: {
+    'User-Agent': 'MinecraftServerFinder/1.0'
   }
-
-  function addCustomTool() {
-    const toolName = document.getElementById('custom-tool').value;
-    if (toolName) {
-      const customCommandsContainer = document.getElementById('custom-commands-container');
-      const newCommand = document.createElement('div');
-      newCommand.className = 'mb-6';
-      newCommand.innerHTML = `
-        <h3 class="font-semibold text-custom mb-2">Custom Command (${toolName})</h3>
-        <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="custom-command-${toolName}">
-          ./${toolName} ${ip ? ip : '[IP]'} ${port ? port : '[PORT]'} 300 300 6550
-        </div>
-        <button onclick="copyCommand('custom-command-${toolName}')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
-          📋 Copy Custom Command
-        </button>
-      `;
-      customCommandsContainer.appendChild(newCommand);
-    }
-  }
-
-  document.getElementById('minecraft-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const server = document.getElementById('server').value;
-    const resultDiv = document.getElementById('minecraft-result');
-    resultDiv.innerHTML = '<p>Checking server status...</p>'; // Immediate feedback
-
-    fetch(`https://api.mcsrvstat.us/2/${server}`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.online) {
-          ip = data.ip;
-          port = data.port;
-          resultDiv.innerHTML = `<p>Server is online!</p><p>IP: ${ip}</p><p>Port: ${port}</p>`;
-          updateCommands(ip, port);
-          updateAllCustomCommands(ip, port);
-        } else {
-          resultDiv.innerHTML = '<p>Server is offline.</p>';
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        resultDiv.innerHTML = '<p>Error checking server status. Please try again later.</p>';
-      });
-  });
-
-  function updateCommands(ip, port) {
-    document.getElementById('command-box-1').textContent = `./prs-tcp ${ip} ${port} 300 300 6550`;
-    document.getElementById('command-box-2').textContent = `./prs-udp ${ip} ${port} 300 1400 300 normal`;
-  }
-
-  function updateAllCustomCommands(ip, port) {
-    const customCommands = document.querySelectorAll('[id^="custom-command-"]');
-    customCommands.forEach(command => {
-      const toolName = command.id.split('-')[2];
-      const commandText = command.querySelector('.pulse');
-      commandText.textContent = `./${toolName} ${ip} ${port} 300 300 6550`;
-    });
-  }
+})
+.then(response => response.json())
+.then(data => {
+if (data.online) {
+ip = data.ip;
+port = data.port;
+resultDiv.innerHTML = `<p>Server is online!</p><p>IP: ${ip}</p><p>Port: ${port}</p>`;
+updateCommands(ip, port);
+updateAllCustomCommands(ip, port);
+} else {
+resultDiv.innerHTML = '<p>Server is offline.</p>';
+}
+})
+.catch(error => {
+console.error('Error:', error);
+resultDiv.innerHTML = '<p>Error checking server status. Please try again later.</p>';
+});
+});
+function updateCommands(ip, port) {
+document.getElementById('command-box-1').textContent = `./prs-tcp ${ip} ${port} 300 300 6550`;
+document.getElementById('command-box-2').textContent = `./prs-udp ${ip} ${port} 300 1400 300 normal`;
+}
+function updateAllCustomCommands(ip, port) {
+const customCommands = document.querySelectorAll('[id^="custom-command-"]');
+customCommands.forEach(command => {
+const toolName = command.id.split('-')[2];
+const commandText = command.querySelector('.pulse');
+commandText.textContent = `./${toolName} ${ip} ${port} 300 300 6550`;
+});
+}
 </script>
-
 </body>
 </html>
