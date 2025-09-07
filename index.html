@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Domain & Minecraft Server Checker</title>
+  <title>Minecraft Server Checker</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes pulse {
@@ -20,74 +20,57 @@
     body {
       background: linear-gradient(135deg, #000, #8B0000);
       color: #fff;
+      font-family: 'Arial', sans-serif;
     }
-    .bg-white {
+    .bg-custom {
       background-color: #1a1a1a;
     }
-    .text-gray-600 {
+    .text-custom {
       color: #d3d3d3;
     }
-    .text-gray-700 {
-      color: #e0e0e0;
-    }
-    .text-gray-800 {
-      color: #f0f0f0;
-    }
-    .border-gray-200 {
+    .border-custom {
       border-color: #333;
     }
-    .hover\\:shadow-xl:hover {
+    .hover\\:shadow-custom:hover {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
     }
-    .focus\\:ring-indigo-500:focus {
+    .focus\\:ring-custom:focus {
       box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5);
     }
-    .focus\\:ring-green-500:focus {
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.5);
-    }
-    .focus\\:ring-purple-500:focus {
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5);
-    }
-    .focus\\:ring-red-500:focus {
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
-    }
-    .focus\\:ring-blue-500:focus {
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
-    }
-    .bg-indigo-600 {
+    .bg-primary {
       background-color: #4f46e5;
     }
-    .bg-green-600 {
+    .bg-secondary {
       background-color: #22c55e;
     }
-    .bg-purple-600 {
+    .bg-tertiary {
       background-color: #8b5cf6;
     }
-    .bg-red-600 {
+    .bg-danger {
       background-color: #ef4444;
     }
-    .bg-blue-600 {
+    .bg-info {
       background-color: #3b82f6;
     }
-    .bg-gray-800 {
+    .bg-dark {
       background-color: #2d2d2d;
     }
-    .hover\\:bg-indigo-700:hover {
+    .hover\\:bg-primary:hover {
       background-color: #4338ca;
     }
-    .hover\\:bg-green-700:hover {
+    .hover\\:bg-secondary:hover {
       background-color: #16a34a;
     }
-    .hover\\:bg-purple-700:hover {
+    .hover\\:bg-tertiary:hover {
       background-color: #7c3aed;
     }
-    .hover\\:bg-red-700:hover {
+    .hover\\:bg-danger:hover {
       background-color: #dc2626;
     }
-    .hover\\:bg-blue-700:hover {
+    .hover\\:bg-info:hover {
       background-color: #3164db;
     }
-    .hover\\:bg-gray-900:hover {
+    .hover\\:bg-dark:hover {
       background-color: #1a1a1a;
     }
   </style>
@@ -95,13 +78,13 @@
 <body class="min-h-screen font-sans">
 
   <!-- Header -->
-  <header class="bg-white shadow-md">
+  <header class="bg-custom shadow-md">
     <div class="container mx-auto px-6 py-6 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold text-teal-600">
-        Domain & Minecraft Server Checker
+      <h1 class="text-3xl md:text-4xl font-bold text-custom">
+        Minecraft Server Checker
       </h1>
-      <p class="text-gray-600 mt-2">
-        Instantly check DNS records, Minecraft server status, and more with one tool.
+      <p class="text-custom mt-2">
+        Instantly check Minecraft server status with one tool.
       </p>
     </div>
   </header>
@@ -110,47 +93,47 @@
   <main class="container mx-auto px-6 py-10 space-y-12">
 
     <!-- Minecraft Status -->
-    <section class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">🎮 Minecraft Server Status</h2>
+    <section class="bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300">
+      <h2 class="text-2xl font-semibold text-custom mb-4">🎮 Minecraft Server Status</h2>
       <form id="minecraft-form" class="space-y-4">
-        <input type="text" id="server" class="w-full px-4 py-2 border rounded-md focus:ring-green-500" placeholder="e.g., hypixel.net" required />
-        <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition">Check Server</button>
+        <input type="text" id="server" class="w-full px-4 py-2 border rounded-md focus:ring-custom" placeholder="e.g., hypixel.net" required />
+        <button type="submit" class="w-full bg-secondary text-white py-2 px-4 rounded-md hover:bg-secondary transition">Check Server</button>
       </form>
-      <div id="minecraft-result" class="mt-6 text-gray-700"></div>
+      <div id="minecraft-result" class="mt-6 text-custom"></div>
     </section>
 
     <!-- Command Generators -->
-    <section class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">⚡ Auto Command Generators</h2>
-      <p class="text-gray-600 mb-4">These commands update automatically with the IP & Port from the Minecraft status.</p>
+    <section class="bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300">
+      <h2 class="text-2xl font-semibold text-custom mb-4">⚡ Auto Command Generators</h2>
+      <p class="text-custom mb-4">These commands update automatically with the IP & Port from the Minecraft status.</p>
 
       <!-- Custom Tool Input -->
       <div class="mb-6">
-        <h3 class="font-semibold text-gray-700 mb-2">Add Custom Tool</h3>
-        <input type="text" id="custom-tool" class="w-full px-4 py-2 border rounded-md focus:ring-blue-500" placeholder="e.g., mytool" required />
-        <button onclick="addCustomTool()" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+        <h3 class="font-semibold text-custom mb-2">Add Custom Tool</h3>
+        <input type="text" id="custom-tool" class="w-full px-4 py-2 border rounded-md focus:ring-custom" placeholder="e.g., mytool" required />
+        <button onclick="addCustomTool()" class="mt-2 bg-info text-white px-4 py-2 rounded-md hover:bg-info transition">
           Add Tool
         </button>
       </div>
 
       <!-- Command 1 -->
       <div class="mb-6">
-        <h3 class="font-semibold text-gray-700 mb-2">Command 1 (prs-tcp)</h3>
-        <div class="bg-gray-100 p-4 rounded-md border text-gray-800 font-mono text-sm overflow-x-auto pulse" id="command-box-1">
+        <h3 class="font-semibold text-custom mb-2">Command 1 (prs-tcp)</h3>
+        <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="command-box-1">
           ./prs-tcp [IP] [PORT] 300 300 6550
         </div>
-        <button onclick="copyCommand('command-box-1')" class="mt-2 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition">
+        <button onclick="copyCommand('command-box-1')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
           📋 Copy Command 1
         </button>
       </div>
 
       <!-- Command 2 -->
       <div>
-        <h3 class="font-semibold text-gray-700 mb-2">Command 2 (prs-udp)</h3>
-        <div class="bg-gray-100 p-4 rounded-md border text-gray-800 font-mono text-sm overflow-x-auto pulse" id="command-box-2">
+        <h3 class="font-semibold text-custom mb-2">Command 2 (prs-udp)</h3>
+        <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="command-box-2">
           ./prs-udp [IP] [PORT] 300 1400 300 normal
         </div>
-        <button onclick="copyCommand('command-box-2')" class="mt-2 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition">
+        <button onclick="copyCommand('command-box-2')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
           📋 Copy Command 2
         </button>
       </div>
@@ -159,9 +142,9 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white py-4 border-t border-gray-200">
-    <div class="container mx-auto px-6 text-center text-gray-600">
-      <p>&copy; 2025 Domain & Minecraft Checker. Built By Team Dosha</p>
+  <footer class="bg-custom py-4 border-t border-custom">
+    <div class="container mx-auto px-6 text-center text-custom">
+      <p>&copy; 2025 Minecraft Server Checker. Built By Team Dosha</p>
     </div>
   </footer>
 <script src="assets/js/brain.js"></script>
@@ -182,15 +165,15 @@
       const newCommand = document.createElement('div');
       newCommand.className = 'mb-6';
       newCommand.innerHTML = `
-        <h3 class="font-semibold text-gray-700 mb-2">Custom Command (${toolName})</h3>
-        <div class="bg-gray-100 p-4 rounded-md border text-gray-800 font-mono text-sm overflow-x-auto pulse" id="custom-command-${toolName}">
+        <h3 class="font-semibold text-custom mb-2">Custom Command (${toolName})</h3>
+        <div class="bg-dark p-4 rounded-md border border-custom text-custom font-mono text-sm overflow-x-auto pulse" id="custom-command-${toolName}">
           ./${toolName} [IP] [PORT] 300 300 6550
         </div>
-        <button onclick="copyCommand('custom-command-${toolName}')" class="mt-2 bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition">
+        <button onclick="copyCommand('custom-command-${toolName}')" class="mt-2 bg-dark text-white px-4 py-2 rounded-md hover:bg-dark transition">
           📋 Copy Custom Command
         </button>
       `;
-      document.querySelector('.bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300').appendChild(newCommand);
+      document.querySelector('.bg-custom p-6 rounded-lg shadow-lg border border-custom hover:shadow-custom transition duration-300').appendChild(newCommand);
       updateCommandsWithCustomTool(toolName);
     }
   }
