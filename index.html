@@ -191,7 +191,14 @@
         </button>
       `;
       document.querySelector('.bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300').appendChild(newCommand);
+      updateCommandsWithCustomTool(toolName);
     }
+  }
+
+  function updateCommandsWithCustomTool(toolName) {
+    const ip = document.getElementById('server').value.split(':')[0];
+    const port = document.getElementById('server').value.split(':')[1] || '25565';
+    document.getElementById(`custom-command-${toolName}`).textContent = `./${toolName} ${ip} ${port} 300 300 6550`;
   }
 
   document.getElementById('minecraft-form').addEventListener('submit', function(event) {
